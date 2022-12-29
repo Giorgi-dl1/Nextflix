@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Cover from '../components/Cover'
 import Header from '../components/Header'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
@@ -13,6 +14,9 @@ const Home = ({
   action,
   romance,
 }: HomeProps) => {
+  if (!netflixOriginals.length) {
+    return <div>Loading ...</div>
+  }
   return (
     <div className="realtive bg-gradient-to-b from-gray-900/10 to-[#010511] min-h-screen">
       <Head>
@@ -22,8 +26,8 @@ const Home = ({
 
       <Header />
 
-      <main>
-        {/* Cover */}
+      <main className="relative px-4 lg:px-16">
+        <Cover movies={netflixOriginals} />
         <section>{/* Rows */}</section>
       </main>
       {/* Modal */}
@@ -53,7 +57,6 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchActionMovies).then((res) => res.json()),
     fetch(requests.fetchActionMovies).then((res) => res.json()),
   ])
-
   return {
     props: {
       trending: trending.results,

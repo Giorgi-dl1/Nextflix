@@ -20,4 +20,7 @@
   .navLink {
     @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-300 hover:text-[#b3b3b3];
   }
+  .button {
+    @apply flex items-center justify-center px-5 py-2 text-sm font-semibold transition duration-300 rounded gap-x-2 hover:opacity-70 md:py-3 md:px-8 md:text-xl;
+  }
 }

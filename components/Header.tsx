@@ -32,12 +32,12 @@ const Header = () => {
         </ul>
       </div>
       <div className="flex items-center space-x-2 md:space-x-4">
-        <BsSearch className="hidden w-6 h-6 cursor-pointer md:inline hover:fill-[#c5c5c5] transition duration-300" />
+        <BsSearch className="hidden w-6 h-6 cursor-pointer md:inline hover:text-[#c5c5c5] transition duration-300" />
         <span className="hidden cursor-pointer hover:text-[#c5c5c5] lg:inline transition duration-300">
           Kids
         </span>
-        <BsFillBellFill className="w-6 h-6 cursor-pointer hover:fill-[#c5c5c5] transition duration-300" />
-        <CgProfile className="w-6 h-6 cursor-pointer hover:fill-[#c5c5c5] transition duration-300" />
+        <BsFillBellFill className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
+        <CgProfile className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
       </div>
     </header>
   )
