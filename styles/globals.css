@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#141414] text-white;
+  }
+  header {
+    @apply fixed top-0 z-50 flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
+  }
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .navLink {
+    @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-300 hover:text-[#b3b3b3];
+  }
+}
