@@ -9,13 +9,13 @@ const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
 
   const handleClick = (dir: string) => {
     setIsScrolled(true)
+    if (scrollerRef.current) {
+      const { scrollLeft, clientWidth } = scrollerRef.current
 
-    const { scrollLeft, clientWidth } = scrollerRef.current
-
-    const width =
-      dir === 'r' ? scrollLeft + clientWidth : scrollLeft - clientWidth
-
-    scrollerRef.current.scrollTo({ left: width, behavior: 'smooth' })
+      const scrollTo =
+        dir === 'l' ? scrollLeft - clientWidth : scrollLeft + clientWidth
+      scrollerRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' })
+    }
   }
 
   return (
