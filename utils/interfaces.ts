@@ -1,6 +1,6 @@
 export interface Movie {
   adult: boolean
-  backdrop_path: string
+  backdrop_path: any
   genre_ids: number[]
   id: number
   media_type?: string
@@ -8,9 +8,10 @@ export interface Movie {
   original_title: string
   overview: string
   popularity: number
-  poster_path: string
+  poster_path: any
   release_date: string
   title: string
+  name?: string
   video: boolean | string
   vote_average: number
   vote_count: number

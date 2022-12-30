@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Cover from '../components/Cover'
 import Header from '../components/Header'
+import Row from '../components/Row'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
 
@@ -14,11 +15,9 @@ const Home = ({
   action,
   romance,
 }: HomeProps) => {
-  if (!netflixOriginals.length) {
-    return <div>Loading ...</div>
-  }
+  console.log(documentary)
   return (
-    <div className="realtive bg-gradient-to-b from-gray-900/10 to-[#010511] min-h-screen">
+    <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -26,9 +25,17 @@ const Home = ({
 
       <Header />
 
-      <main className="relative px-4 lg:px-16">
+      <main className="relative pl-4 overflow-x-hidden lg:pl-16">
         <Cover movies={netflixOriginals} />
-        <section>{/* Rows */}</section>
+        <section className="mt-6 mb-6 space-y-6 md:mt-16 md:space-y-20 md:mb-10">
+          <Row title="Trending" movies={trending} />
+          <Row title="Top Rated" movies={topRated} />
+          <Row title="Action Thrillers" movies={action} />
+          <Row title="Comedies" movies={comedy} />
+          <Row title="Horror" movies={horror} />
+          <Row title="Romance Movies" movies={romance} />
+          <Row title="Documentaries" movies={documentary} />
+        </section>
       </main>
       {/* Modal */}
     </div>

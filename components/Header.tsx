@@ -18,7 +18,7 @@ const Header = () => {
     }
   }, [])
   return (
-    <header className={`${scrolled && 'bg-[#141414]'}`}>
+    <header className={`transition duration-300 ${scrolled && 'bg-[#141414]'}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <div className="text-2xl font-bold text-red-600 skew-x-6 cursor-pointer">
           NEXTFLIX

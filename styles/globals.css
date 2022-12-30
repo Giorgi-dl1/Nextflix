@@ -23,4 +23,7 @@
   .button {
     @apply flex items-center justify-center px-5 py-2 text-sm font-semibold transition duration-300 rounded gap-x-2 hover:opacity-70 md:py-3 md:px-8 md:text-xl;
   }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 }
