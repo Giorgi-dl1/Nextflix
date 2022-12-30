@@ -15,7 +15,6 @@ const Home = ({
   action,
   romance,
 }: HomeProps) => {
-  console.log(documentary)
   return (
     <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>
