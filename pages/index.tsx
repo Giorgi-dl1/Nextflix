@@ -18,7 +18,7 @@ const Home = ({
   return (
     <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>
-        <title>Create Next App</title>
+        <title>Home - Nextflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
