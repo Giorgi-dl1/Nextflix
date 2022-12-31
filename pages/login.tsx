@@ -1,10 +1,23 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+interface Inputs {
+  email: string
+  password: string
+}
 
 const login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data)
+  }
   return (
     <div className="relative w-screen h-screen bg-black md:bg-transparent ">
       <Head>
@@ -24,37 +37,51 @@ const login = () => {
       </header>
       <main className="w-full px-5 pt-16 md:flex md:justify-center">
         <form
-          action=""
+          onSubmit={handleSubmit(onSubmit)}
           className="text-[grey] md:max-w-[470px] w-full md:p-[60px] md:bg-black/75 rounded"
         >
           <h1 className="mb-10 text-3xl font-bold text-white">Sign In</h1>
           <div className="flex flex-col gap-3 mb-10">
-            <div className={`relative w-full ${email.length ? 'filled' : ''}`}>
+            <div
+              className={`relative w-full ${watch('email') ? 'filled' : ''} `}
+            >
               <input
                 type="email"
-                name="email"
                 id="email"
-                onChange={(e) => setEmail(e.target.value)}
-                className="input "
+                className={`input ${
+                  errors.email ? 'border-b-2 border-[#e87c03]' : ''
+                }`}
+                {...register('email', { required: true })}
               />
               <label htmlFor="email" className="label">
                 Email or phone number
               </label>
             </div>
+            {errors.email && (
+              <div className="text-[#e87c03] text-sm -mt-2">
+                Please enter a valid email.
+              </div>
+            )}
             <div
-              className={`relative w-full ${password.length ? 'filled' : ''}`}
+              className={`relative w-full ${watch('password') ? 'filled' : ''}`}
             >
               <input
                 type="password"
-                name="password"
-                className="input"
-                onChange={(e) => setPassword(e.target.value)}
+                className={`input ${
+                  errors.email ? 'border-b-2 border-[#e87c03]' : ''
+                }`}
+                {...register('password', { required: true, minLength: 6 })}
                 id="password"
               />
               <label htmlFor="password" className="label">
                 Password
               </label>
-            </div>
+            </div>{' '}
+            {errors.password && (
+              <div className="text-[#e87c03] text-sm -mt-2">
+                Password must contain min characters.
+              </div>
+            )}
           </div>
           <div>
             <button

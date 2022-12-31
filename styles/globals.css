@@ -28,7 +28,7 @@
   }
 
   .input {
-    @apply w-full rounded bg-[#333333] px-5 pt-5 pb-1 outline-none focus:bg-[#454545];
+    @apply w-full rounded bg-[#333333] px-5 pt-5 pb-1 outline-none text-white focus:bg-[#454545];
   }
   .label {
     @apply absolute top-[50%] -translate-y-[50%] left-5 transition-all duration-300 text-sm  pointer-events-none;
