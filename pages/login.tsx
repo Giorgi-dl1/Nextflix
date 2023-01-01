@@ -1,13 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import useAuth from '../store/Auth'
 
 interface Inputs {
   email: string
   password: string
+  remember: string
 }
 
 const login = () => {
+  const defaultEmail = localStorage.getItem('nextflixEmail')
   const {
     register,
     handleSubmit,
@@ -15,11 +19,18 @@ const login = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
+  const { signIn, error: authError } = useAuth()
+
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    await signIn(email, password)
   }
+
   return (
-    <div className="relative w-screen h-screen bg-black md:bg-transparent ">
+    <div
+      className={`relative max-w-[100vw] min-h-screen overflow-x-hidden  bg-black md:bg-transparent ${
+        authError ? 'pb-5' : ''
+      }`}
+    >
       <Head>
         <title>Nextflix</title>
       </Head>
@@ -28,7 +39,7 @@ const login = () => {
         className="object-cover opacity-60 -z-10"
         alt="background"
         fill
-        sizes="100%"
+        sizes="(max-width:600px)100vw"
       />
       <header>
         <div className="text-xl font-bold text-red-600 cursor-pointer md:text-4xl">
@@ -41,7 +52,17 @@ const login = () => {
           className="text-[grey] md:max-w-[470px] w-full md:p-[60px] md:bg-black/75 rounded"
         >
           <h1 className="mb-10 text-3xl font-bold text-white">Sign In</h1>
+
           <div className="flex flex-col gap-3 mb-10">
+            {authError && (
+              <div className="bg-[#e87c03] text-white text-[15px] rounded -mt-2 px-4 py-3">
+                Sorry, we can't find an account with this email address. Please
+                try again or{' '}
+                <Link href="/signup" className="underline">
+                  create a new account.
+                </Link>
+              </div>
+            )}
             <div
               className={`relative w-full ${watch('email') ? 'filled' : ''} `}
             >
@@ -54,7 +75,7 @@ const login = () => {
                 {...register('email', { required: true })}
               />
               <label htmlFor="email" className="label">
-                Email or phone number
+                Email
               </label>
             </div>
             {errors.email && (
@@ -92,18 +113,18 @@ const login = () => {
             </button>
             <div className="flex justify-between text-sm ">
               <div className="flex items-center gap-1">
-                <input
-                  type="checkbox"
-                  name="remember"
-                  className="accent-[#b3b3b3]"
-                />
+                <input type="checkbox" className="accent-[#b3b3b3]" />
                 <label htmlFor="">Remember me</label>
               </div>
               <span className="cursor-pointer hover:underline">Need help?</span>
             </div>
             <div className="mt-3 md:mt-20">
               New to Nextflix?
-              <span className="text-white hover:underline"> Sign Up now</span>.
+              <Link href="/signup" className="text-white hover:underline">
+                {' '}
+                Sign Up now
+              </Link>
+              .
             </div>
           </div>
         </form>
