@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useAuth from '../store/Auth'
+import { getError, strToUpper } from '../utils/utilities'
 
 interface Inputs {
   email: string
@@ -11,7 +13,6 @@ interface Inputs {
 }
 
 const login = () => {
-  const defaultEmail = localStorage.getItem('nextflixEmail')
   const {
     register,
     handleSubmit,
@@ -19,11 +20,17 @@ const login = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signIn, error: authError } = useAuth()
+  const { signIn, error: authError, resetError } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signIn(email, password)
   }
+
+  const errMessage = getError(authError)
+
+  useEffect(() => {
+    resetError()
+  }, [])
 
   return (
     <div
@@ -54,13 +61,26 @@ const login = () => {
           <h1 className="mb-10 text-3xl font-bold text-white">Sign In</h1>
 
           <div className="flex flex-col gap-3 mb-10">
-            {authError && (
-              <div className="bg-[#e87c03] text-white text-[15px] rounded -mt-2 px-4 py-3">
-                Sorry, we can't find an account with this email address. Please
-                try again or{' '}
-                <Link href="/signup" className="underline">
-                  create a new account.
-                </Link>
+            {authError && errMessage !== 'email already in use' && (
+              <div className="bg-[#e87c03] text-white text-[15px] rounded -mt-2 px-4 py-3 max-h-max">
+                {errMessage === 'user not found' ? (
+                  <span>
+                    Sorry, we can't find an account with this email address.
+                    Please try again or{' '}
+                    <Link href="/signup" className="underline">
+                      create a new account.
+                    </Link>
+                  </span>
+                ) : errMessage === 'wrong password' ? (
+                  <span>
+                    <strong>Incorrect password.</strong> please try again. or{' '}
+                    <Link href="/signup" className="underline">
+                      create a new account.
+                    </Link>
+                  </span>
+                ) : (
+                  <span>{strToUpper(errMessage)}. Try again later</span>
+                )}
               </div>
             )}
             <div
@@ -91,18 +111,13 @@ const login = () => {
                 className={`input ${
                   errors.email ? 'border-b-2 border-[#e87c03]' : ''
                 }`}
-                {...register('password', { required: true, minLength: 6 })}
+                {...register('password', { required: true })}
                 id="password"
               />
               <label htmlFor="password" className="label">
                 Password
               </label>
-            </div>{' '}
-            {errors.password && (
-              <div className="text-[#e87c03] text-sm -mt-2">
-                Password must contain min characters.
-              </div>
-            )}
+            </div>
           </div>
           <div>
             <button

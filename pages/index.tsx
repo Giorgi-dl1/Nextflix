@@ -1,9 +1,14 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import Cover from '../components/Cover'
 import Header from '../components/Header'
 import Row from '../components/Row'
+import useAuth from '../store/Auth'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
+
+// add logout
 
 const Home = ({
   trending,
@@ -15,6 +20,14 @@ const Home = ({
   action,
   romance,
 }: HomeProps) => {
+  const router = useRouter()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+    }
+  }, [user])
   return (
     <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>

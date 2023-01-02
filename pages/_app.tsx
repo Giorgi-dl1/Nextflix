@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { AuthProvider } from '../store/Auth'
+import useAuth, { AuthProvider } from '../store/Auth'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { loading } = useAuth()
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      {loading ? <div>Loading...</div> : <Component {...pageProps} />}
     </AuthProvider>
   )
 }

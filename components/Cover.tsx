@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { BsFillInfoCircleFill, BsFillPlayFill } from 'react-icons/bs'
-import { randomNumber } from '../utils/calculator'
+import { randomNumber } from '../utils/utilities'
 import { Movie } from '../utils/interfaces'
 
 interface Movies {

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { BsFillBellFill, BsSearch } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
+import useAuth from '../store/Auth'
 const Header = () => {
   const [scrolled, setScrolled] = useState(false)
+
+  const { logout } = useAuth()
 
   useEffect(() => {
     const checkScroll = () => {
@@ -37,7 +40,10 @@ const Header = () => {
           Kids
         </span>
         <BsFillBellFill className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
-        <CgProfile className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
+        <CgProfile
+          onClick={async () => await logout()}
+          className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300"
+        />
       </div>
     </header>
   )

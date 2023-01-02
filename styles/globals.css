@@ -9,11 +9,6 @@
   header {
     @apply fixed top-0 z-50 flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
   }
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
 }
 
 @layer components {
@@ -33,7 +28,7 @@
   .label {
     @apply absolute top-[50%] -translate-y-[50%] left-5 transition-all duration-300 text-sm  pointer-events-none;
   }
-  .input:focus + .label,
+  input:focus + .label,
   .filled .label {
     @apply text-[12px] top-[25%];
   }

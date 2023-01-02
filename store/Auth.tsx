@@ -14,6 +14,7 @@ interface AuthInterface {
   signUp: (email: string, password: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
+  resetError: any
   error: string | null
   loading: boolean
 }
@@ -27,6 +28,7 @@ const Auth = createContext<AuthInterface>({
   signIn: async () => {},
   signUp: async () => {},
   logout: async () => {},
+  resetError: () => {},
   error: null,
   loading: false,
 })
@@ -39,11 +41,12 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
   const router = useRouter()
 
   useEffect(() => {
+    setLoading(true)
+    setError(null)
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         setUser(null)
         setLoading(false)
-        router.push('/login')
         return
       }
 
@@ -52,6 +55,8 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     })
   }, [auth])
 
+  const resetError = () => setError(null)
+
   const signUp = async (email: string, password: string) => {
     setLoading(true)
     await createUserWithEmailAndPassword(auth, email, password)
@@ -59,7 +64,7 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
         setUser(data.user)
         router.push('/')
       })
-      .catch((e) => alert(e.message))
+      .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
   }
 
@@ -86,15 +91,19 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
   }
 
   const value = useMemo(
-    () => ({ user, error, loading, logout, signUp, signIn }),
+    () => ({
+      user,
+      error,
+      loading,
+      logout,
+      signUp,
+      signIn,
+      resetError,
+    }),
     [user, loading, error],
   )
 
-  return (
-    <Auth.Provider value={value}>
-      {loading ? <div>Loading...</div> : children}
-    </Auth.Provider>
-  )
+  return <Auth.Provider value={value}>{children}</Auth.Provider>
 }
 
 export default function useAuth() {
