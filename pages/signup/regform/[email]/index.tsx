@@ -29,17 +29,13 @@ const index = () => {
 
   const errMessage = getError(error)
 
-  useEffect(() => {
-    resetError()
-  }, [])
-
   return (
     <div className="absolute w-full min-h-screen text-black bg-white">
       <header>
         <div className="text-xl font-bold text-red-600 cursor-pointer md:text-4xl">
           NEXTFLIX
         </div>
-        <Link href="/login">
+        <Link onClick={() => resetError()} href="/login">
           <button className="px-5 py-1 text-white bg-red-600 rounded">
             Sign In
           </button>
@@ -61,7 +57,11 @@ const index = () => {
                 {errMessage === 'email already in use' ? (
                   <span>
                     Email is already registered.{' '}
-                    <Link href="/login" className="underline">
+                    <Link
+                      onClick={() => resetError()}
+                      href="/login"
+                      className="underline"
+                    >
                       Sign In
                     </Link>
                   </span>

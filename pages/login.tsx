@@ -20,17 +20,13 @@ const login = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signIn, error: authError, resetError } = useAuth()
+  const { signIn, error: authError, resetError, loading } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signIn(email, password)
   }
 
   const errMessage = getError(authError)
-
-  useEffect(() => {
-    resetError()
-  }, [])
 
   return (
     <div
@@ -67,14 +63,22 @@ const login = () => {
                   <span>
                     Sorry, we can't find an account with this email address.
                     Please try again or{' '}
-                    <Link href="/signup" className="underline">
+                    <Link
+                      onClick={() => resetError()}
+                      href="/signup"
+                      className="underline"
+                    >
                       create a new account.
                     </Link>
                   </span>
                 ) : errMessage === 'wrong password' ? (
                   <span>
                     <strong>Incorrect password.</strong> please try again. or{' '}
-                    <Link href="/signup" className="underline">
+                    <Link
+                      onClick={() => resetError()}
+                      href="/signup"
+                      className="underline"
+                    >
                       create a new account.
                     </Link>
                   </span>

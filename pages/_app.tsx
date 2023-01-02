@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { loading } = useAuth()
   return (
     <AuthProvider>
-      {loading ? <div>Loading...</div> : <Component {...pageProps} />}
+      <Component {...pageProps} />
     </AuthProvider>
   )
 }
