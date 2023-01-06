@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useAuth from '../store/Auth'
@@ -20,13 +21,21 @@ const login = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signIn, error: authError, resetError, loading } = useAuth()
+  const { signIn, error: authError, resetError, user } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signIn(email, password)
   }
 
   const errMessage = getError(authError)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user])
 
   return (
     <div

@@ -15,6 +15,7 @@ export interface Movie {
   video: boolean | string
   vote_average: number
   vote_count: number
+  original_name?: string
 }
 
 export interface HomeProps {

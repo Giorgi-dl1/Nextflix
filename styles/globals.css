@@ -21,7 +21,12 @@
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
-
+  .width-tranisiton {
+    transition: width 300ms !important;
+  }
+  .border-transition {
+    transition: border-color 300ms !important;
+  }
   .input {
     @apply w-full rounded bg-[#333333] px-5 pt-5 pb-1 outline-none text-white focus:bg-[#454545];
   }
@@ -31,5 +36,12 @@
   input:focus + .label,
   .filled .label {
     @apply text-[12px] top-[25%];
+  }
+
+  .row-wrapper {
+    @apply -mb-[185px] md:-mb-[153px];
+  }
+  .items-wrapper {
+    @apply -mt-[210px] md:-mt-[178px] min-h-[500px];
   }
 }

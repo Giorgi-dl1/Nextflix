@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs'
 import { Movie } from '../utils/interfaces'
-import MovieThumb from './MovieThumb'
+import RowItem from './RowItem'
 
 const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
   const scrollerRef = useRef<HTMLDivElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
   const handleClick = (dir: string) => {
     setIsScrolled(true)
@@ -19,26 +20,36 @@ const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
   }
 
   return (
-    <div className="group">
-      <h2 className="text-xl font-bold md:text-2xl">{title}</h2>
+    <div
+      className={` row-wrapper transition-none group ${
+        isHovered ? 'row-wrapper' : 'mb-[25px]'
+      }`}
+    >
+      <h2 className="pl-4 mb-4 font-bold lg:pl-16 md:text-2xl">{title}</h2>
       <div className="relative">
         <div
           ref={scrollerRef}
-          className="flex h-full space-x-2 overflow-x-scroll scrollbar-hidden md:space-x-4 md:py-2 md:px-2 md:-mx-2"
+          className={`${isHovered ? 'items-wrapper' : ''} relative pl-4
+          lg:pl-16 transition-none flex h-full items-center space-x-2 overflow-x-scroll scrollbar-hidden md:space-x-4`}
         >
           {movies.map((movie) => (
-            <MovieThumb movie={movie} key={movie.id} />
+            <div
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <RowItem movie={movie} key={movie.id} />
+            </div>
           ))}
         </div>
         <BsChevronCompactLeft
           onClick={() => handleClick('l')}
-          className={`absolute left-0 top-[50%] translate-y-[-50%] cursor-pointer w-9 h-9 opacity-0 group-hover:opacity-100 tranistion duration-300 hover:scale-125 ${
+          className={`absolute left-0 top-[50%] translate-y-[-50%] z-[100] cursor-pointer w-9 h-9 opacity-0 group-hover:opacity-100 tranistion duration-300 hover:scale-125 ${
             !isScrolled && 'hidden'
           }`}
         />
         <BsChevronCompactRight
           onClick={() => handleClick('r')}
-          className="absolute right-0 top-[50%] translate-y-[-50%] cursor-pointer w-9 h-9 opacity-0 group-hover:opacity-100 transition duration-300 hover:scale-125"
+          className="absolute right-0 top-[50%] translate-y-[-50%] z-[100] cursor-pointer w-9 h-9 opacity-0 group-hover:opacity-100 transition duration-300 hover:scale-125"
         />
       </div>
     </div>

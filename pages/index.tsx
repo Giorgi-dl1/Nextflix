@@ -8,8 +8,6 @@ import useAuth from '../store/Auth'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
 
-// add logout
-
 const Home = ({
   trending,
   netflixOriginals,
@@ -37,9 +35,9 @@ const Home = ({
 
       <Header />
 
-      <main className="relative pl-4 overflow-x-hidden lg:pl-16">
+      <main className="relative overflow-hidden lg:">
         <Cover movies={netflixOriginals} />
-        <section className="mt-6 mb-6 space-y-6 md:mt-16 md:space-y-20 md:mb-10">
+        <section className="mt-6 mb-6 md:mt-16 md:mb-10">
           <Row title="Trending" movies={trending} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={action} />
@@ -49,7 +47,6 @@ const Home = ({
           <Row title="Documentaries" movies={documentary} />
         </section>
       </main>
-      {/* Modal */}
     </div>
   )
 }

@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BsChevronCompactRight } from 'react-icons/bs'
+import useAuth from '../../store/Auth'
 
 interface Inputs {
   email: string
@@ -21,6 +23,14 @@ const index = () => {
   const onSubmit: SubmitHandler<Inputs> = async ({ email }) => {
     router.push(`/signup/regform/${email}`)
   }
+
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user])
 
   return (
     <div className="absolute w-full min-h-screen ">

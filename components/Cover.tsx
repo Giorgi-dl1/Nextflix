@@ -23,14 +23,17 @@ const Cover = ({ movies }: Movies) => {
     : movie?.poster_path
   return (
     <>
-      <div className="flex flex-col py-16 space-y-2 md:space-y-4 lg:space-y-6 lg:h-[65vh] lg:justify-end lg:pb-8">
+      <div
+        className="flex pl-4
+lg:pl-16 flex-col py-16 space-y-2 md:space-y-4 lg:space-y-6 lg:h-[65vh] lg:justify-end lg:pb-8"
+      >
         <div className="w-screen h-[95vh] -z-10 absolute top-0 left-0">
           {movie && (
             <Image
               src={`https://image.tmdb.org/t/p/original${imagePath}`}
               alt="cover image"
               sizes="100%"
-              className="object-cover"
+              className="object-cover opacity-80"
               fill
               priority
             />
@@ -43,7 +46,9 @@ const Cover = ({ movies }: Movies) => {
           {movie?.overview}
         </p>
       </div>
-      <div className="flex space-x-2 md:space-x-4 lg:space-x-6">
+      <div
+        className="flex pl-4 space-x-2 lg:pl-16 md:space-x-4 lg:space-x-6"
+      >
         <button className="text-black bg-white button">
           <BsFillPlayFill className="w-4 h-4 md:w-7 md:h-7" />
           Play

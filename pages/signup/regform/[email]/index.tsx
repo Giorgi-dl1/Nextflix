@@ -21,13 +21,19 @@ const index = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signUp, error, resetError } = useAuth()
+  const { signUp, error, resetError, user } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signUp(email, password)
   }
 
   const errMessage = getError(error)
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user])
 
   return (
     <div className="absolute w-full min-h-screen text-black bg-white">
