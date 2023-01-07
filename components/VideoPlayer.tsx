@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
-import { Movie } from '../utils/interfaces'
 
 interface player {
   url: string | null
@@ -9,7 +7,7 @@ interface player {
 
 const VideoPlayer = ({ url, muted }: player) => {
   return (
-    <div className="absolute w-full h-[52%] overflow-hidden">
+    <div className="absolute cursor-pointer w-full -z-50 h-[52%] overflow-hidden">
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${url}`}
         width="100%"
@@ -17,9 +15,9 @@ const VideoPlayer = ({ url, muted }: player) => {
         style={{
           position: 'absolute',
           top: '-50.3%',
-
           left: '0',
         }}
+        loop={true}
         playing={true}
         muted={muted}
       />

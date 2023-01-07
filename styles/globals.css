@@ -7,7 +7,7 @@
     @apply bg-[#141414] text-white;
   }
   header {
-    @apply fixed top-0 z-50 flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
+    @apply fixed top-0 z-[100] flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
   }
 }
 
@@ -16,13 +16,25 @@
     @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-300 hover:text-[#b3b3b3];
   }
   .button {
-    @apply flex items-center justify-center px-5 py-2 text-sm font-semibold transition duration-300 rounded gap-x-2 hover:opacity-70 md:py-3 md:px-8 md:text-xl;
+    @apply flex items-center justify-center px-1.5 py-[.4rem] md:py-2 text-[10px] md:text-sm font-semibold transition duration-300 rounded lg:text-base gap-x-1 hover:opacity-70 md:px-6;
   }
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
   .width-tranisiton {
-    transition: width 300ms !important;
+    transition: width 300ms ease-in-out !important;
+  }
+  .h-transition {
+    max-height: 2500px;
+    height: auto;
+    transition: max-height 1s cubic-bezier(0.1, 0, 0.1, 1);
+    overflow: hidden;
+  }
+  .h-transition.hide {
+    max-height: 0;
+  }
+  .font-transition {
+    transition: font-size 2s ease-out;
   }
   .border-transition {
     transition: border-color 300ms !important;
@@ -40,8 +52,10 @@
 
   .row-wrapper {
     @apply -mb-[185px] md:-mb-[153px];
+    transition: height 0s, padding 0s, margin 0s !important;
   }
   .items-wrapper {
     @apply -mt-[210px] md:-mt-[178px] min-h-[500px];
+    transition: height 0s, padding 0s, margin 0s !important;
   }
 }

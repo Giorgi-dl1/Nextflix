@@ -37,7 +37,7 @@ const Home = ({
 
       <main className="relative overflow-hidden lg:">
         <Cover movies={netflixOriginals} />
-        <section className="mt-6 mb-6 md:mt-16 md:mb-10">
+        <section className="flex flex-col gap-3 -mt-6 mb-28 md:gap-6 md:-mt-24 md:mb-24">
           <Row title="Trending" movies={trending} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={action} />
