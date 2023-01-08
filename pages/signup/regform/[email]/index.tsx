@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import useAuth from '../../../../store/Auth'
+import useAuth from '../../../../hooks/Auth'
 import { getError, strToUpper } from '../../../../utils/utilities'
 
 interface Inputs {

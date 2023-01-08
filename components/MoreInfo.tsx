@@ -82,7 +82,7 @@ const MoreInfo = ({ movie }: { movie: Movie }) => {
         </div>
         <div className="flex gap-1.5 mt-2 flex-wrap">
           {genres?.map((genre, index) => (
-            <div className="flex items-center gap-1.5">
+            <div key={genre.id} className="flex items-center gap-1.5">
               <div>{genre.name}</div>
               {index < genres.length - 1 && (
                 <div className="w-2 h-2 rounded-full bg-[#979797] " />

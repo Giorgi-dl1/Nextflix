@@ -6,8 +6,6 @@ import RowItem from './RowItem'
 const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
   const scrollerRef = useRef<HTMLDivElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
-
   const handleClick = (dir: string) => {
     setIsScrolled(true)
     if (scrollerRef.current) {
@@ -19,35 +17,20 @@ const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
     }
   }
 
-  const handleMouseEnter = () => {
-    setTimeout(() => {
-      setIsHovered(true)
-    }, 800)
-  }
-
   return (
-    <div
-      className={` row-wrapper !transition-none group ${
-        isHovered ? 'row-wrapper' : 'mb-[25px]'
-      }`}
-    >
-      <h2 className="relative z-50 pl-4 mb-4 font-bold lg:pl-16 md:text-2xl">
+    <div className={`!transition-none group `}>
+      <h2 className="relative z-50 pl-4 mb-16 font-bold md:mb-[5rem] lg:pl-10 md:text-2xl">
         {title}
       </h2>
       <div className="relative">
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-10" />
         <div
           ref={scrollerRef}
-          className={`${isHovered ? 'items-wrapper' : ''} relative pl-4
-          lg:pl-16 !transition-none flex items-center space-x-2 overflow-x-scroll scrollbar-hidden md:space-x-4`}
+          className={` relative pl-4
+          lg:pl-10 h-[144px] py-[200px] -my-[210px] md:-my-[200px] overflow-y-hidden flex items-center space-x-2 overflow-x-scroll scrollbar-hidden md:space-x-4`}
         >
           {movies.map((movie) => (
-            <div
-              onMouseEnter={() => handleMouseEnter()}
-              onMouseLeave={() => setIsHovered(false)}
-              className="transition-none"
-            >
-              <RowItem movie={movie} key={movie.id} />
-            </div>
+            <RowItem movie={movie} key={movie.id} />
           ))}
         </div>
         <BsChevronCompactLeft

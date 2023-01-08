@@ -7,7 +7,7 @@
     @apply bg-[#141414] text-white;
   }
   header {
-    @apply fixed top-0 z-[100] flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
+    @apply fixed top-0 z-[200] flex items-center justify-between w-full px-4 py-4 transition-all lg:px-10 lg:py-5;
   }
 }
 

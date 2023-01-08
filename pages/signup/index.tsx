@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BsChevronCompactRight } from 'react-icons/bs'
-import useAuth from '../../store/Auth'
+import useAuth from '../../hooks/Auth'
 
 interface Inputs {
   email: string

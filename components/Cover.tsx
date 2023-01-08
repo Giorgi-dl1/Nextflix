@@ -6,7 +6,6 @@ import CoverContent from './CoverContent'
 interface Movies {
   movies: Movie[]
 }
-
 const Cover = ({ movies }: Movies) => {
   const [movie, setMovie] = useState<Movie | null>(null)
   const [showDesc, setShowDesc] = useState(true)

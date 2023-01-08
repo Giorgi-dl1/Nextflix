@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import Cover from '../components/Cover'
 import Header from '../components/Header'
 import Row from '../components/Row'
-import useAuth from '../store/Auth'
+import useAuth from '../hooks/Auth'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
 
@@ -37,7 +37,7 @@ const Home = ({
 
       <main className="relative overflow-hidden lg:">
         <Cover movies={netflixOriginals} />
-        <section className="flex flex-col gap-3 -mt-6 mb-28 md:gap-6 md:-mt-24 md:mb-24">
+        <section className="relative flex flex-col gap-16 -mt-6 mb-28 md:gap-24 md:-mt-24 md:mb-24">
           <Row title="Trending" movies={trending} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={action} />

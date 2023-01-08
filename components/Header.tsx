@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BsFillBellFill, BsSearch } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
-import useAuth from '../store/Auth'
+import useAuth from '../hooks/Auth'
 const Header = () => {
   const [scrolled, setScrolled] = useState(false)
 
