@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BsFillBellFill, BsSearch } from 'react-icons/bs'
+import { IoMdArrowDropright } from 'react-icons/io'
 import { CgProfile } from 'react-icons/cg'
 import useAuth from '../hooks/Auth'
 const Header = () => {
@@ -40,10 +41,19 @@ const Header = () => {
           Kids
         </span>
         <BsFillBellFill className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
-        <CgProfile
+
+        <span
           onClick={async () => await logout()}
-          className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300"
-        />
+          className="cursor-pointer lg:flex lg:items-center md:gap-1 group/profileicon"
+        >
+          <img
+            className="w-8 h-8 rounded cursor-pointer hover:text-[#c5c5c5] transition duration-300"
+            src="https://rb.gy/qi3851"
+            alt="icon"
+          />
+          <IoMdArrowDropright className="w-6 h-6 transition duration-300 rotate-90 group-hover/profileicon:rotate-[270deg]" />
+          <div></div>
+        </span>
       </div>
     </header>
   )

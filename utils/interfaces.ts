@@ -1,3 +1,7 @@
+export interface genre {
+  id: number
+  name: string
+}
 export interface Movie {
   adult: boolean
   backdrop_path: string
@@ -16,6 +20,9 @@ export interface Movie {
   vote_average: number
   vote_count: number
   original_name?: string
+  genres?: genre[]
+  first_air_date?: string
+  trailer: string
 }
 
 export interface HomeProps {

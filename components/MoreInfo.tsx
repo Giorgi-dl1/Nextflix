@@ -3,18 +3,22 @@ import { FaPlay } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
 import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs'
-import { Movie } from '../utils/interfaces'
+import { genre, Movie } from '../utils/interfaces'
 import { useEffect, useState } from 'react'
+import useStore from '../hooks/Store'
 
-interface genre {
-  id: number
-  name: string
+interface MoreInfo {
+  movie: Movie
+  setIsHovered: any
 }
 
-const MoreInfo = ({ movie }: { movie: Movie }) => {
+const MoreInfo = ({ movie, setIsHovered }: MoreInfo) => {
   const [trailer, setTrailer] = useState<string | null>(null)
   const [genres, setGenres] = useState<genre[] | null>(null)
   const [muted, setMuted] = useState(true)
+  const [hasToPlayCover, setHasToPlayCover] = useState(false)
+
+  const { coverPlaying, setCoverPlaying, setModalMovie } = useStore()
 
   useEffect(() => {
     async function fetchMovie() {
@@ -35,19 +39,38 @@ const MoreInfo = ({ movie }: { movie: Movie }) => {
     }
     fetchMovie()
   }, [movie])
+
+  const clickHandler = () => {
+    if (coverPlaying || hasToPlayCover) {
+      setHasToPlayCover(!hasToPlayCover)
+      setCoverPlaying(!coverPlaying)
+    }
+    setMuted(!muted)
+  }
+
+  const openModal = () => {
+    const modalData = { ...movie, genres, trailer }
+    clickHandler()
+    setIsHovered(false)
+    setModalMovie(modalData)
+  }
+
   return (
     <>
       <VideoPlayer url={trailer} muted={muted} />
       <div className="p-5 relative mt-[56%] md:mt-[50%]">
         <div
-          onClick={() => setMuted(!muted)}
+          onClick={() => clickHandler()}
           className="absolute text-white opacity-20 hover:opacity-100 left-5 -top-8 md:-top-12 grid w-[34px] border-2 border-white transition duration-300 cursor-pointer h-[34px] text-xl hover:text-white bg-[#333] rounded-full place-content-center"
         >
           {muted ? <VscMute /> : <VscUnmute />}
         </div>
         <div>
           <div className="flex gap-3">
-            <div className="grid w-[34px] h-[34px] text-black transition duration-300 bg-white rounded-full cursor-pointer hover:bg-white/80 place-content-center">
+            <div
+              onClick={() => openModal()}
+              className="grid w-[34px] h-[34px] text-black transition duration-300 bg-white rounded-full cursor-pointer hover:bg-white/80 place-content-center"
+            >
               <FaPlay />
             </div>
             <div className="grid group/add  relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center">
@@ -81,7 +104,7 @@ const MoreInfo = ({ movie }: { movie: Movie }) => {
           {movie.title || movie.original_name}
         </div>
         <div className="flex gap-1.5 mt-2 flex-wrap">
-          {genres?.map((genre, index) => (
+          {genres?.map((genre: genre, index: number) => (
             <div key={genre.id} className="flex items-center gap-1.5">
               <div>{genre.name}</div>
               {index < genres.length - 1 && (

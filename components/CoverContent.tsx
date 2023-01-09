@@ -14,8 +14,8 @@ const CoverContent = ({
   showDesc: boolean
 }) => {
   const [trailer, setTrailer] = useState<string | null>(null)
-  const [playing, setPlaying] = useState(true)
-  const { coverMuted, setCoverMuted } = useStore()
+  const [muted, setMuted] = useState(true)
+  const { coverPlaying, setCoverPlaying } = useStore()
 
   useEffect(() => {
     async function fetchMovie() {
@@ -47,8 +47,8 @@ const CoverContent = ({
             zIndex: -2,
           }}
           loop={true}
-          muted={coverMuted}
-          playing={playing}
+          muted={muted}
+          playing={coverPlaying}
         />
       )}
       <div className="absolute bottom-[25%] left-4 lg:left-10">
@@ -72,10 +72,10 @@ const CoverContent = ({
         <div className="relative z-50 flex items-center justify-between w-screen px-4 mt-2 -translate-x-4 md:mt-4 lg:-translate-x-10 lg:px-10">
           <div className="flex items-center space-x-2 md:space-x-3 lg:space-x-4">
             <button
-              onClick={() => setPlaying(!playing)}
+              onClick={() => setCoverPlaying(!coverPlaying)}
               className="text-black bg-white button"
             >
-              {!playing ? (
+              {!coverPlaying ? (
                 <>
                   <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
                   Play
@@ -94,10 +94,10 @@ const CoverContent = ({
             </button>
           </div>
           <div
-            onClick={() => setCoverMuted(!coverMuted)}
+            onClick={() => setMuted(!muted)}
             className="z-50 text-white md:text-2xl grid w-[34px] md:w-[54px] -translate-x-4 border-2 border-white transition duration-300 cursor-pointer h-[34px] md:h-[54px] text-xl bg-[#666]/20 hover:bg-[#777]/40 rounded-full place-content-center"
           >
-            {coverMuted ? <VscMute /> : <VscUnmute />}
+            {muted ? <VscMute /> : <VscUnmute />}
           </div>
         </div>
       </div>

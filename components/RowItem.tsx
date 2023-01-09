@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import useStore from '../hooks/Store'
 import { Movie } from '../utils/interfaces'
 import MoreInfo from './MoreInfo'
 
@@ -8,8 +7,6 @@ const RowItem = ({ movie }: { movie: Movie }) => {
   const [showMovie, setShowMovie] = useState<boolean>(false)
   const [isHovered, setIsHovered] = useState(false)
   const [timer, setTimer] = useState<any>(null)
-
-  const { setCoverMuted } = useStore()
 
   const imagePath = movie?.backdrop_path
     ? movie.backdrop_path
@@ -19,7 +16,6 @@ const RowItem = ({ movie }: { movie: Movie }) => {
     if (isHovered) {
       setTimer(
         setTimeout(() => {
-          setCoverMuted(true)
           setShowMovie(true)
         }, 800),
       )
@@ -35,8 +31,8 @@ const RowItem = ({ movie }: { movie: Movie }) => {
 
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseOver={() => setIsHovered(true)}
+      onMouseOut={() => setIsHovered(false)}
       className={`group/thumb rounded-md overflow-hidden relative z-50 min-w-[153px] ${
         showMovie && 'hover:min-w-[300px]'
       }  cursor-pointer hover:z-[150] md:min-w-[280px] bg-[#222] h-20 md:h-36 tranistion duration-300 ${
@@ -44,7 +40,7 @@ const RowItem = ({ movie }: { movie: Movie }) => {
       } ${showMovie && 'hover:h-[350px]'} hover:shadow-xl`}
     >
       {showMovie ? (
-        <MoreInfo movie={movie} />
+        <MoreInfo movie={movie} setIsHovered={setIsHovered} />
       ) : (
         <Image
           src={`https://image.tmdb.org/t/p/w500${imagePath}`}

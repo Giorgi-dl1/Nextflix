@@ -27,7 +27,7 @@ const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
         <div
           ref={scrollerRef}
           className={` relative pl-4
-          lg:pl-10 h-[144px] py-[200px] -my-[210px] md:-my-[200px] overflow-y-hidden flex items-center space-x-2 overflow-x-scroll scrollbar-hidden md:space-x-4`}
+          lg:pl-10 h-[144px] py-[200px] -my-[210px] md:-my-[200px] overflow-y-hidden flex items-center space-x-2 overflow-x-scroll scrollbar-hidden  md:space-x-4`}
         >
           {movies.map((movie) => (
             <RowItem movie={movie} key={movie.id} />

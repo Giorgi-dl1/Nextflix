@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  @-moz-document url-prefix() {
+    div {
+      scrollbar-width: none !important;
+    }
+  }
   body {
     @apply bg-[#141414] text-white;
   }

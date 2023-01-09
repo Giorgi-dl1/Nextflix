@@ -1,27 +1,42 @@
-import { createContext, useContext, useMemo, useState } from 'react'
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react'
+import { Movie } from '../utils/interfaces'
 
 interface StateInterface {
-  coverMuted: boolean
-  toggleCoverMuted: any
+  coverPlaying: boolean
+  setCoverPlaying: any
+  modalMovie: Movie | null
+  setModalMovie: any
 }
 
 const initialState = {
-  coverMuted: false,
-  toggleCoverMuted: () => {},
+  coverPlaying: true,
+  modalMovie: null,
+  setCoverPlaying: () => {},
 }
 
 const Store = createContext<any>(initialState)
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
-  const [coverMuted, setCoverMuted] = useState(false)
+  const [coverPlaying, setCoverPlaying] = useState(true)
+  const [modalMovie, setModalMovie] = useState(null)
 
-  const toggleCoverMuted = () => setCoverMuted(!coverMuted)
+  console.log('store', modalMovie)
+
   const value = useMemo(
     () => ({
-      coverMuted,
-      setCoverMuted,
+      coverPlaying,
+      setCoverPlaying,
+      modalMovie,
+      setModalMovie,
     }),
-    [coverMuted],
+    [coverPlaying, modalMovie],
   )
   return <Store.Provider value={value}>{children}</Store.Provider>
 }

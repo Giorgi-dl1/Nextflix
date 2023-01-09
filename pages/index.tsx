@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Cover from '../components/Cover'
 import Header from '../components/Header'
+import Modal from '../components/Modal'
 import Row from '../components/Row'
 import useAuth from '../hooks/Auth'
 import { HomeProps } from '../utils/interfaces'
@@ -46,6 +47,8 @@ const Home = ({
           <Row title="Romance Movies" movies={romance} />
           <Row title="Documentaries" movies={documentary} />
         </section>
+
+        <Modal />
       </main>
     </div>
   )
