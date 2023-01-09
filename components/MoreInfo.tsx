@@ -1,6 +1,6 @@
 import VideoPlayer from './VideoPlayer'
 import { FaPlay } from 'react-icons/fa'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlineCheck, AiOutlinePlus } from 'react-icons/ai'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
 import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs'
 import { genre, Movie } from '../utils/interfaces'
@@ -18,7 +18,14 @@ const MoreInfo = ({ movie, setIsHovered }: MoreInfo) => {
   const [muted, setMuted] = useState(true)
   const [hasToPlayCover, setHasToPlayCover] = useState(false)
 
-  const { coverPlaying, setCoverPlaying, setModalMovie } = useStore()
+  const {
+    coverPlaying,
+    setCoverPlaying,
+    setModalMovie,
+    addToFavorites,
+    checkInFavorites,
+    removeFromFavorites,
+  } = useStore()
 
   useEffect(() => {
     async function fetchMovie() {
@@ -73,13 +80,28 @@ const MoreInfo = ({ movie, setIsHovered }: MoreInfo) => {
             >
               <FaPlay />
             </div>
-            <div className="grid group/add  relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center">
-              <div className="absolute z-10 hidden group-hover/add:block w-max group-hover/add:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">
-                Add to My List
+            {checkInFavorites(movie.id) ? (
+              <div
+                onClick={() => removeFromFavorites(movie.id)}
+                className="grid group/add  relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center"
+              >
+                <div className="absolute z-10 hidden group-hover/add:block w-max group-hover/add:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">
+                  Remove From My List
+                </div>
+                <AiOutlineCheck />
               </div>
-              <div className="absolute hidden group-hover/add:block opacity-0 group-hover/add:opacity-100 transition duration-300 w-3 h-3 left-[50%] -translate-x-[50%] rotate-45 bg-white -top-5" />
-              <AiOutlinePlus />
-            </div>
+            ) : (
+              <div
+                onClick={() => addToFavorites(movie)}
+                className="grid group/add  relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center"
+              >
+                <div className="absolute z-10 hidden group-hover/add:block w-max group-hover/add:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">
+                  Add to My List
+                </div>
+                <AiOutlinePlus />
+              </div>
+            )}
+
             <div className="flex rounded-md p-1 -translate-y-1 relative group/thumbs hover:bg-[#444] width-tranisiton w-10 hover:w-[90px]">
               <div className="grid group/like relative w-[34px] border-2 border-white group-hover/thumbs:border-transparent group-hover/thumbs:bg-inherit hover:!bg-white/20 transition duration-300 cursor-pointer h-[34px] text-xl text-white rounded-full place-content-center">
                 <div className="absolute z-10 hidden group-hover/like:block w-max group-hover/like:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">

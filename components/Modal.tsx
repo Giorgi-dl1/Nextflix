@@ -12,7 +12,6 @@ const Modal = () => {
   const [muted, setMuted] = useState(true)
 
   const { modalMovie: movie, setModalMovie } = useStore()
-  console.log(movie)
 
   return movie ? (
     <>

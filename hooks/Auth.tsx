@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
         setLoading(false)
         return
       }
-      router.push('/')
       setUser(user)
       setLoading(false)
     })

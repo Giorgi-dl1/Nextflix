@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Modal from '../components/Modal'
 import Row from '../components/Row'
 import useAuth from '../hooks/Auth'
+import useStore from '../hooks/Store'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
 
@@ -21,6 +22,7 @@ const Home = ({
 }: HomeProps) => {
   const router = useRouter()
   const { user } = useAuth()
+  const { favoriteMovies } = useStore()
 
   useEffect(() => {
     if (!user) {
@@ -46,6 +48,9 @@ const Home = ({
           <Row title="Horror" movies={horror} />
           <Row title="Romance Movies" movies={romance} />
           <Row title="Documentaries" movies={documentary} />
+          {favoriteMovies.length ? (
+            <Row title="Favorites" movies={favoriteMovies} />
+          ) : null}
         </section>
 
         <Modal />
