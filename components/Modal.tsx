@@ -3,10 +3,12 @@ import ReactPlayer from 'react-player'
 import { genre } from '../utils/interfaces'
 import { IoMdClose } from 'react-icons/io'
 import { FaPlay } from 'react-icons/fa'
-import { BsHandThumbsUp } from 'react-icons/bs'
+import { BsFillPlayFill, BsHandThumbsUp } from 'react-icons/bs'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
 import { AiOutlinePlus } from 'react-icons/ai'
 import useStore from '../hooks/Store'
+import { GiPauseButton } from 'react-icons/gi'
+import VideoNotFound from './VideoNotFound'
 
 const Modal = () => {
   const [muted, setMuted] = useState(true)
@@ -26,21 +28,27 @@ const Modal = () => {
         <div className="relative  pt-[56.25%]">
           <div className="absolute top-0 bottom-0 left-0 right-0 z-[400]" />
 
-          <div className="w-full overflow-hidden max-h-[570px] ">
-            <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${movie.trailer}`}
-              width="100%"
-              height="100%"
-              style={{ position: 'absolute', top: '0', left: '0' }}
-              playing
-              loop
-              muted={muted}
-            />
-          </div>
+          {movie.trailer !== 'not found' ? (
+            <div className="w-full overflow-hidden max-h-[570px] ">
+              <ReactPlayer
+                url={`https://www.youtube.com/watch?v=${movie.trailer}`}
+                width="100%"
+                height="100%"
+                style={{ position: 'absolute', top: '0', left: '0' }}
+                playing
+                loop
+                muted={muted}
+              />
+            </div>
+          ) : (
+            <div className="absolute top-0 bottom-0 left-0 right-0 min-h-[570px]">
+              <VideoNotFound />
+            </div>
+          )}
           <div className="absolute flex items-center justify-between w-full px-10 bottom-10">
             <div className="flex space-x-2">
-              <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-                <FaPlay className="text-black h-7 w-7" />
+              <button className="text-black bg-white button">
+                <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
                 Play
               </button>
               <div className="grid group/add z-[401] relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center">

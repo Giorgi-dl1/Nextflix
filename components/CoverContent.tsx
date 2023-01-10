@@ -14,8 +14,9 @@ const CoverContent = ({
   showDesc: boolean
 }) => {
   const [trailer, setTrailer] = useState<string | null>(null)
-  const [muted, setMuted] = useState(true)
-  const { coverPlaying, setCoverPlaying } = useStore()
+  const [tagline, setTagline] = useState(null)
+
+  const { coverMuted, setCoverMuted } = useStore()
 
   useEffect(() => {
     async function fetchMovie() {
@@ -32,6 +33,9 @@ const CoverContent = ({
         )
         setTrailer(data.videos?.results[index]?.key)
       }
+      if (data.tagline) {
+        setTagline(data.tagline)
+      }
     }
     fetchMovie()
   })
@@ -47,8 +51,8 @@ const CoverContent = ({
             zIndex: -2,
           }}
           loop={true}
-          muted={muted}
-          playing={coverPlaying}
+          muted={coverMuted}
+          playing={true}
         />
       )}
       <div className="absolute bottom-[25%] left-4 lg:left-10">
@@ -66,26 +70,14 @@ const CoverContent = ({
             showDesc ? '' : 'hide'
           } max-w-sm text-[12px] md:text-base md:max-w-xl lg:max-w-2xl`}
         >
-          {movie?.overview}
+          {tagline || movie?.overview}
         </p>
 
         <div className="relative z-50 flex items-center justify-between w-screen px-4 mt-2 -translate-x-4 md:mt-4 lg:-translate-x-10 lg:px-10">
           <div className="flex items-center space-x-2 md:space-x-3 lg:space-x-4">
-            <button
-              onClick={() => setCoverPlaying(!coverPlaying)}
-              className="text-black bg-white button"
-            >
-              {!coverPlaying ? (
-                <>
-                  <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
-                  Play
-                </>
-              ) : (
-                <>
-                  <GiPauseButton className="w-3 h-3 md:w-6 md:h-6" />
-                  Pause
-                </>
-              )}
+            <button className="text-black bg-white button">
+              <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
+              Play
             </button>
 
             <button className="bg-gray-500/20 button ">
@@ -94,10 +86,10 @@ const CoverContent = ({
             </button>
           </div>
           <div
-            onClick={() => setMuted(!muted)}
+            onClick={() => setCoverMuted(!coverMuted)}
             className="z-50 text-white md:text-2xl grid w-[34px] md:w-[54px] -translate-x-4 border-2 border-white transition duration-300 cursor-pointer h-[34px] md:h-[54px] text-xl bg-[#666]/20 hover:bg-[#777]/40 rounded-full place-content-center"
           >
-            {muted ? <VscMute /> : <VscUnmute />}
+            {coverMuted ? <VscMute /> : <VscUnmute />}
           </div>
         </div>
       </div>

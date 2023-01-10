@@ -45,7 +45,7 @@ const RowItem = ({ movie }: { movie: Movie }) => {
         <Image
           src={`https://image.tmdb.org/t/p/w500${imagePath}`}
           alt="thumbnail"
-          className="object-cover rounded-sm"
+          className="object-cover rounded-md"
           sizes="100%"
           fill
         />

@@ -8,6 +8,9 @@
       scrollbar-width: none !important;
     }
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-[#141414] text-white;
   }

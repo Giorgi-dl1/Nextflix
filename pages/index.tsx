@@ -49,7 +49,7 @@ const Home = ({
           <Row title="Romance Movies" movies={romance} />
           <Row title="Documentaries" movies={documentary} />
           {favoriteMovies.length ? (
-            <Row title="Favorites" movies={favoriteMovies} />
+            <Row title="My List" movies={favoriteMovies} />
           ) : null}
         </section>
 
