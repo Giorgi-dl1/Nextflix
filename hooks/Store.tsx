@@ -48,12 +48,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [statusedMovies, setStatusedMovies] = useState<MovieStatus[]>([])
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('favMovies'))) {
-      setFavoriteMovies(JSON.parse(localStorage.getItem('favMovies')))
-    }
-    if (JSON.parse(localStorage.getItem('statusedMovies'))) {
-      setStatusedMovies(JSON.parse(localStorage.getItem('statusedMovies')))
-    }
+    setFavoriteMovies(JSON.parse(localStorage.getItem('favMovies') || '{}'))
+    setStatusedMovies(
+      JSON.parse(localStorage.getItem('statusedMovies') || '{}'),
+    )
   }, [])
 
   const addToFavorites = (movie: Movie) => {
