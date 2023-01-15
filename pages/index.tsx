@@ -1,7 +1,9 @@
+import axios from 'axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Cover from '../components/Cover'
+import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Modal from '../components/Modal'
 import Row from '../components/Row'
@@ -38,7 +40,7 @@ const Home = ({
 
       <Header />
 
-      <main className="relative overflow-hidden lg:">
+      <main className="relative pb-20 -mb-20 overflow-hidden ">
         <Cover movies={netflixOriginals} />
         <section className="relative flex flex-col gap-16 -mt-6 mb-28 md:gap-24 md:-mt-24 md:mb-24">
           <Row title="Trending" movies={trending} />
@@ -55,6 +57,7 @@ const Home = ({
 
         <Modal />
       </main>
+      <Footer />
     </div>
   )
 }
@@ -71,7 +74,7 @@ export const getServerSideProps = async () => {
     documentary,
     action,
     romance,
-  ] = await Promise.all([
+  ] = await axios.all([
     fetch(requests.fetchTrending).then((res) => res.json()),
     fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
     fetch(requests.fetchTopRated).then((res) => res.json()),
@@ -79,7 +82,7 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchHorrorMovies).then((res) => res.json()),
     fetch(requests.fetchDocumentaries).then((res) => res.json()),
     fetch(requests.fetchActionMovies).then((res) => res.json()),
-    fetch(requests.fetchActionMovies).then((res) => res.json()),
+    fetch(requests.fetchRomanceMovies).then((res) => res.json()),
   ])
   return {
     props: {
