@@ -4,6 +4,7 @@ import { Movie } from '../utils/interfaces'
 import { BsFillInfoCircleFill, BsFillPlayFill } from 'react-icons/bs'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
 import useStore from '../hooks/Store'
+import Image from 'next/image'
 
 const CoverContent = ({
   movie,
@@ -17,6 +18,10 @@ const CoverContent = ({
 
   const { coverMuted, setCoverMuted } = useStore()
 
+  const imagePath = movie?.backdrop_path
+    ? movie.backdrop_path
+    : movie?.poster_path
+
   useEffect(() => {
     async function fetchMovie() {
       const data = await fetch(
@@ -26,11 +31,17 @@ const CoverContent = ({
           process.env.NEXT_PUBLIC_KEY
         }&language=en-US&append_to_response=videos`,
       ).then((response) => response.json())
-      if (data?.videos) {
+      if (data?.videos.results.length) {
         const index = data.videos.results.findIndex(
           (element: { type: string }) => element.type === 'Trailer',
         )
-        setTrailer(data.videos?.results[index]?.key)
+        if (index !== -1) {
+          setTrailer(data.videos?.results[index]?.key)
+        } else {
+          setTrailer(data.videos?.results[0]?.key)
+        }
+      } else {
+        setTrailer('not found')
       }
       if (data.tagline) {
         setTagline(data.tagline)
@@ -38,9 +49,10 @@ const CoverContent = ({
     }
     fetchMovie()
   })
+
   return (
     <div className="w-screen overflow-hidden h-[30vh] md:h-[70vh] lg:h-[95vh] relative">
-      {movie && (
+      {movie && trailer !== 'not found' ? (
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${trailer}`}
           width="110%"
@@ -56,6 +68,16 @@ const CoverContent = ({
           muted={coverMuted}
           playing={true}
         />
+      ) : (
+        <div className="absolute top-0 left-0 -z-10 h-[95vh] w-screen">
+          <Image
+            fill
+            alt="cover"
+            sizes="100%"
+            src={`https://image.tmdb.org/t/p/w500${imagePath}`}
+            className="object-cover"
+          />
+        </div>
       )}
       <div className="absolute bottom-[25%] left-4 lg:left-10">
         <h1

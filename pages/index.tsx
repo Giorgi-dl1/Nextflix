@@ -31,6 +31,7 @@ const Home = ({
       router.push('/login')
     }
   }, [user])
+
   return (
     <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>
@@ -38,9 +39,7 @@ const Home = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
-
-      <main className="relative pb-20 -mb-20 overflow-hidden ">
+      <div className="relative pb-20 -mb-20 overflow-hidden ">
         <Cover movies={netflixOriginals} />
         <section className="relative flex flex-col gap-16 -mt-6 mb-28 md:gap-24 md:-mt-24 md:mb-24">
           <Row title="Trending" movies={trending} />
@@ -56,8 +55,7 @@ const Home = ({
         </section>
 
         <Modal />
-      </main>
-      <Footer />
+      </div>
     </div>
   )
 }
