@@ -15,8 +15,9 @@ const CoverContent = ({
 }) => {
   const [trailer, setTrailer] = useState<string | null>(null)
   const [tagline, setTagline] = useState(null)
+  const [genres, setGenres] = useState(null)
 
-  const { coverMuted, setCoverMuted } = useStore()
+  const { coverMuted, setCoverMuted, setModalMovie } = useStore()
 
   const imagePath = movie?.backdrop_path
     ? movie.backdrop_path
@@ -46,9 +47,19 @@ const CoverContent = ({
       if (data.tagline) {
         setTagline(data.tagline)
       }
+      setGenres(data?.genres)
     }
     fetchMovie()
   })
+
+  const openModal = () => {
+    const modalData = { ...movie, genres, trailer }
+    if (!coverMuted) {
+      setCoverMuted(true)
+    }
+    setModalMovie(modalData)
+    window.scrollTo(0, 0)
+  }
 
   return (
     <div className="w-screen overflow-hidden h-[30vh] md:h-[70vh] lg:h-[95vh] relative">
@@ -99,12 +110,15 @@ const CoverContent = ({
 
         <div className="relative z-50 flex items-center justify-between w-screen px-4 mt-2 -translate-x-4 md:mt-4 lg:-translate-x-10 lg:px-10">
           <div className="flex items-center space-x-2 md:space-x-3 lg:space-x-4">
-            <button className="text-black bg-white button">
+            <button className="text-black bg-white cursor-auto button hover:opacity-100">
               <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
               Play
             </button>
 
-            <button className="bg-gray-500/20 button ">
+            <button
+              onClick={() => openModal()}
+              className="bg-gray-500/20 button "
+            >
               More Info
               <BsFillInfoCircleFill className="w-4 h-4 md:w-6 md:h-6" />
             </button>
