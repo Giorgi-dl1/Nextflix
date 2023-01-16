@@ -12,6 +12,9 @@ const VideoPlayer = ({ url, muted }: player) => {
         url={`https://www.youtube.com/watch?v=${url}`}
         width="100%"
         height="200%"
+        config={{
+          youtube: { playerVars: { origin: 'https://www.youtube.com' } },
+        }}
         style={{
           position: 'absolute',
           top: '-50.3%',

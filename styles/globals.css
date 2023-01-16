@@ -42,7 +42,7 @@
     max-height: 0;
   }
   .font-transition {
-    transition: font-size 2s ease-out;
+    transition: font-size 2s ease;
   }
   .border-transition {
     transition: border-color 300ms !important;

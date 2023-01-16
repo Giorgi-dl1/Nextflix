@@ -2,13 +2,11 @@ import { useState } from 'react'
 import ReactPlayer from 'react-player'
 import { genre } from '../utils/interfaces'
 import { IoMdClose } from 'react-icons/io'
-import { FaPlay } from 'react-icons/fa'
-import { BsFillPlayFill, BsHandThumbsUp } from 'react-icons/bs'
+import { BsFillPlayFill } from 'react-icons/bs'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
-import { AiOutlinePlus } from 'react-icons/ai'
 import useStore from '../hooks/Store'
-import { GiPauseButton } from 'react-icons/gi'
 import VideoNotFound from './VideoNotFound'
+import Icons from './Icons'
 
 const Modal = () => {
   const [muted, setMuted] = useState(true)
@@ -32,6 +30,11 @@ const Modal = () => {
             <div className="w-full overflow-hidden max-h-[570px] ">
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${movie.trailer}`}
+                config={{
+                  youtube: {
+                    playerVars: { origin: 'https://www.youtube.com' },
+                  },
+                }}
                 width="100%"
                 height="100%"
                 style={{ position: 'absolute', top: '0', left: '0' }}
@@ -46,25 +49,13 @@ const Modal = () => {
             </div>
           )}
           <div className="absolute flex items-center justify-between w-full px-10 bottom-10">
-            <div className="flex space-x-2">
-              <button className="text-black bg-white button">
-                <BsFillPlayFill className="w-3 h-3 md:w-6 md:h-6" />
+            <div className="flex items-center space-x-4">
+              <button className="text-base text-black bg-white button">
+                <BsFillPlayFill className="w-4 h-4 md:w-6 md:h-6" />
                 Play
               </button>
-              <div className="grid group/add z-[401] relative w-[34px] border-2 border-[#555] hover:border-white transition duration-300 cursor-pointer h-[34px] text-xl text-white bg-slate-300/10 rounded-full place-content-center">
-                <div className="absolute z-10 hidden group-hover/add:block w-max group-hover/add:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">
-                  Add to My List
-                </div>
-                <div className="absolute hidden group-hover/add:block opacity-0 group-hover/add:opacity-100 transition duration-300 w-3 h-3 left-[50%] -translate-x-[50%] rotate-45 bg-white -top-5" />
-                <AiOutlinePlus />
-              </div>
-              <div className="grid z-[401] group/like relative w-[34px] border-2 border-white group-hover/thumbs:border-transparent group-hover/thumbs:bg-inherit hover:!bg-white/20 transition duration-300 cursor-pointer h-[34px] text-xl text-white rounded-full place-content-center">
-                <div className="absolute z-10 hidden group-hover/like:block w-max group-hover/like:opacity-100 transition duration-300 opacity-0 font-semibold text-black/90 rounded text-base bg-white -top-[2.5rem] left-[50%] -translate-x-[50%] px-3 py-[2px]">
-                  I like this
-                </div>
-                <div className="absolute hidden group-hover/like:block opacity-0 group-hover/like:opacity-100 transition duration-300 w-3 h-3 left-[50%] -translate-x-[50%] rotate-45 bg-white -top-5" />
-
-                <BsHandThumbsUp className="w-6 h-[22px]" />
+              <div className="flex gap-2 mt-2 z-[401]">
+                <Icons movie={movie} />
               </div>
             </div>
             <button
@@ -83,7 +74,7 @@ const Modal = () => {
           <div className="space-y-6 text-lg">
             <div className="flex items-center space-x-2 text-sm">
               <p className="font-semibold text-green-400">
-                {movie!.vote_average * 10}% Match
+                {(movie!.vote_average * 10).toFixed(2)}% Match
               </p>
               <p className="font-light">
                 {movie?.release_date || movie?.first_air_date}
@@ -120,7 +111,10 @@ const Modal = () => {
           </div>
         </div>
       </div>
-      <div className="absolute top-0 -bottom-16 left-0 right-0 bg-black/20 z-[299]" />
+      <div
+        onClick={() => setModalMovie(null)}
+        className="absolute top-0 -bottom-16 left-0 right-0 bg-black/20 z-[299]"
+      />
     </>
   ) : null
 }

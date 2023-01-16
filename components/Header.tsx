@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BsFillBellFill, BsSearch } from 'react-icons/bs'
 import { IoMdArrowDropright } from 'react-icons/io'
-import { CgProfile } from 'react-icons/cg'
 import useAuth from '../hooks/Auth'
 const Header = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -42,18 +41,25 @@ const Header = () => {
         </span>
         <BsFillBellFill className="w-6 h-6 cursor-pointer hover:text-[#c5c5c5] transition duration-300" />
 
-        <span
-          onClick={async () => await logout()}
-          className="cursor-pointer lg:flex lg:items-center md:gap-1 group/profileicon"
-        >
+        <div className="relative cursor-pointer group/profile lg:flex lg:items-center md:gap-1 group/profileicon">
           <img
             className="w-8 h-8 rounded cursor-pointer hover:text-[#c5c5c5] transition duration-300"
             src="https://rb.gy/qi3851"
             alt="icon"
           />
-          <IoMdArrowDropright className="w-6 h-6 transition duration-300 rotate-90 group-hover/profileicon:rotate-[270deg]" />
-          <div></div>
-        </span>
+          <IoMdArrowDropright className="w-6 hidden lg:block h-6 transition duration-300 rotate-90 group-hover/profileicon:rotate-[270deg]" />
+
+          <IoMdArrowDropright className="w-7 h-7 text-[gray] opacity-0 group-hover/profile:opacity-100 hidden group-hover/profile:block transition duration-300  absolute top-[44px] rotate-[270deg]" />
+          <div className="absolute border border-[gray] opacity-0 group-hover/profile:opacity-100 transition hidden group-hover/profile:block duration-300 right-0 bg-black/50 top-[62px] w-[200px]">
+            <div className="absolute z-[0] w-full h-8 cursor-auto -top-8" />
+            <button
+              onClick={async () => await logout()}
+              className="w-full py-2 text-center z-[2]"
+            >
+              Sign out of Nextflix
+            </button>
+          </div>
+        </div>
       </div>
     </header>
   )

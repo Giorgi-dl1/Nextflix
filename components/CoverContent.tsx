@@ -3,7 +3,6 @@ import ReactPlayer from 'react-player'
 import { Movie } from '../utils/interfaces'
 import { BsFillInfoCircleFill, BsFillPlayFill } from 'react-icons/bs'
 import { VscMute, VscUnmute } from 'react-icons/vsc'
-import { GiPauseButton } from 'react-icons/gi'
 import useStore from '../hooks/Store'
 
 const CoverContent = ({
@@ -46,6 +45,9 @@ const CoverContent = ({
           url={`https://www.youtube.com/watch?v=${trailer}`}
           width="110%"
           height="150%"
+          config={{
+            youtube: { playerVars: { origin: 'https://www.youtube.com' } },
+          }}
           style={{
             transform: 'translate(-5%,-17%)',
             zIndex: -2,

@@ -24,9 +24,6 @@ const Cover = ({ movies }: Movies) => {
     return () => clearTimeout(timer)
   }, [])
 
-  const imagePath = movie?.backdrop_path
-    ? movie.backdrop_path
-    : movie?.poster_path
   return (
     <div className="relative">
       {movie && <CoverContent movie={movie} showDesc={showDesc} />}

@@ -35,7 +35,7 @@ const login = () => {
     if (user) {
       router.push('/')
     }
-  }, [user])
+  }, [])
 
   return (
     <div
@@ -134,6 +134,7 @@ const login = () => {
           </div>
           <div>
             <button
+              onClick={() => resetError()}
               type="submit"
               className="w-full bg-[#E50914] font-semibold py-3 rounded mb-2 text-white"
             >
