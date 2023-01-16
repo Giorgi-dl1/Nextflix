@@ -38,7 +38,7 @@ const Home = ({
         <title>Home - Nextflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Header />
       <div className="relative pb-20 -mb-20 overflow-hidden ">
         <Cover movies={netflixOriginals} />
         <section className="relative flex flex-col gap-16 -mt-6 mb-28 md:gap-24 md:-mt-24 md:mb-24">
@@ -55,6 +55,7 @@ const Home = ({
         </section>
 
         <Modal />
+        <Footer />
       </div>
     </div>
   )
