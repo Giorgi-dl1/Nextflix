@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import useStore from '../hooks/Store'
 import { Movie } from '../utils/interfaces'
 import MoreInfo from './MoreInfo'
 
@@ -69,7 +68,7 @@ const RowItem = ({ movie }: { movie: Movie }) => {
       {showMovie && (
         <div
           onClick={() => hideMore()}
-          onMouseLeave={() => hideMore()}
+          onMouseOver={() => hideMore()}
           className="z-[51] absolute -top-[200px] -bottom-[250px] -left-4 right-0"
         />
       )}

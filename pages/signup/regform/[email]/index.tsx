@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import AuthFooter from '../../../../components/AuthFooter'
+import Loading from '../../../../components/Loading'
 import useAuth from '../../../../hooks/Auth'
 import { getError, strToUpper } from '../../../../utils/utilities'
 
@@ -21,7 +23,7 @@ const index = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signUp, error, resetError, user } = useAuth()
+  const { signUp, error, resetError, user, loading } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signUp(email, password)
@@ -85,18 +87,13 @@ const index = () => {
                 <input
                   type="email"
                   id="email"
-                  className={`input bg-white focus:bg-white border text-black ${
-                    errors.email
-                      ? ' border-red-700'
-                      : watch('email') | email?.length
-                      ? 'border-green-400'
-                      : ''
-                  }`}
+                  className={`input bg-white focus:bg-white px-0 text-black `}
                   {...register('email', { required: true, value: email })}
                 />
-                <label htmlFor="email" className="label text-[gray]">
+                <label htmlFor="email" className="label text-[gray] left-0">
                   Email
                 </label>
+                <div className="absolute top-0 bottom-0 left-0 right-0" />
               </div>
               {errors.email && (
                 <div className="text-[#e87c03] text-sm -mt-2">
@@ -135,12 +132,13 @@ const index = () => {
                 type="submit"
                 className="w-full bg-[#E50914] font-semibold py-3 rounded mb-2 text-white"
               >
-                Sign Up
+                {loading ? <Loading sm={true} /> : 'Sign Up'}
               </button>
             </div>
           </form>
         </div>
       </main>
+      <AuthFooter white={true} />
     </div>
   )
 }

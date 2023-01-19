@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import Cover from '../components/Cover'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import Loading from '../components/Loading'
 import Modal from '../components/Modal'
 import Row from '../components/Row'
 import useAuth from '../hooks/Auth'
@@ -24,7 +25,7 @@ const Home = ({
 }: HomeProps) => {
   const router = useRouter()
   const { user } = useAuth()
-  const { favoriteMovies } = useStore()
+  const { favoriteMovies, loading } = useStore()
 
   useEffect(() => {
     if (!user) {
@@ -32,7 +33,11 @@ const Home = ({
     }
   }, [user])
 
-  return (
+  return loading ? (
+    <div className="grid w-screen h-screen bg-white place-content-center">
+      <Loading />
+    </div>
+  ) : (
     <div className="min-h-screen realtive bg-gradient-to-b">
       <Head>
         <title>Home - Nextflix</title>

@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import Loading from '../components/Loading'
 import { auth } from '../firebase'
 
 interface AuthInterface {
@@ -102,11 +101,7 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     [user, loading, error],
   )
 
-  return (
-    <Auth.Provider value={value}>
-      {loading ? <Loading /> : children}
-    </Auth.Provider>
-  )
+  return <Auth.Provider value={value}>{children}</Auth.Provider>
 }
 
 export default function useAuth() {

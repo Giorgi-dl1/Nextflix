@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import AuthFooter from '../components/AuthFooter'
+import Loading from '../components/Loading'
 import useAuth from '../hooks/Auth'
 import { getError, strToUpper } from '../utils/utilities'
 
@@ -21,7 +23,7 @@ const login = () => {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const { signIn, error: authError, resetError, user } = useAuth()
+  const { signIn, error: authError, resetError, user, loading } = useAuth()
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await signIn(email, password)
@@ -39,9 +41,7 @@ const login = () => {
 
   return (
     <div
-      className={`relative max-w-[100vw] min-h-screen overflow-x-hidden  bg-black md:bg-transparent ${
-        authError ? 'pb-5' : ''
-      }`}
+      className={`relative max-w-[100vw] overflow-x-hidden  bg-black md:bg-transparent `}
     >
       <Head>
         <title>Nextflix</title>
@@ -58,7 +58,7 @@ const login = () => {
           NEXTFLIX
         </div>
       </header>
-      <main className="w-full px-5 pt-16 md:flex md:justify-center">
+      <main className="w-full min-h-screen px-5 pt-16 md:flex md:justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="text-[grey] md:max-w-[470px] w-full md:p-[60px] md:bg-black/75 rounded"
@@ -67,7 +67,7 @@ const login = () => {
 
           <div className="flex flex-col gap-3 mb-10">
             {authError && errMessage !== 'email already in use' && (
-              <div className="bg-[#e87c03] text-white text-[15px] rounded -mt-2 px-4 py-3 max-h-max">
+              <div className="bg-[#e87c03]  text-white text-[15px] rounded  px-4 py-3 max-h-max">
                 {errMessage === 'user not found' ? (
                   <span>
                     Sorry, we can't find an account with this email address.
@@ -96,6 +96,7 @@ const login = () => {
                 )}
               </div>
             )}
+
             <div
               className={`relative w-full ${watch('email') ? 'filled' : ''} `}
             >
@@ -138,7 +139,7 @@ const login = () => {
               type="submit"
               className="w-full bg-[#E50914] font-semibold py-3 rounded mb-2 text-white"
             >
-              Sign In
+              {loading ? <Loading sm={true} /> : 'Sign In'}
             </button>
             <div className="flex justify-between text-sm ">
               <div className="flex items-center gap-1">
@@ -158,6 +159,7 @@ const login = () => {
           </div>
         </form>
       </main>
+      <AuthFooter />
     </div>
   )
 }
