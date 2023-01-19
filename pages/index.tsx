@@ -52,6 +52,7 @@ const Home = ({
           {favoriteMovies.length ? (
             <Row title="My List" movies={favoriteMovies} />
           ) : null}
+          <div className="absolute -top-[200px] -bottom-[250px] left-0 right-0 z-10" />
         </section>
 
         <Modal />

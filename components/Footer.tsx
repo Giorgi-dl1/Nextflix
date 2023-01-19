@@ -20,15 +20,15 @@ const Footer = () => {
   return (
     <footer className="px-4 py-8 space-y-8 md:mt-6 lg:px-36">
       <div className="flex gap-3">
-        <FaFacebookF className="w-6 h-6 cursor-pointer" />
-        <BsInstagram className="w-6 h-6 cursor-pointer" />
-        <ImYoutube className="w-6 h-6 cursor-pointer" />
+        <FaFacebookF className="w-6 h-6 !z-[140] cursor-pointer" />
+        <BsInstagram className="w-6 h-6 !z-[140] cursor-pointer" />
+        <ImYoutube className="w-6 h-6 !z-[140] cursor-pointer" />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-y-2">
         {links.map((link) => (
           <div
             key={link}
-            className="text-sm cursor-pointer hover:underline max-w-max text-white/70"
+            className="text-sm !z-[140] cursor-pointer hover:underline max-w-max text-white/70"
           >
             {link}
           </div>

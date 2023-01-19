@@ -40,16 +40,15 @@ const Row = ({ movies, title }: { movies: Movie[]; title: string }) => {
   }, [])
 
   return (
-    <div className={`!transition-none group `}>
-      <h2 className="relative z-50 pl-4 mb-16 font-bold md:mb-[5rem] lg:pl-10 md:text-2xl">
+    <div>
+      <h2 className=" z-50 pl-4 mb-16 font-bold md:mb-[5rem] lg:pl-10 md:text-2xl">
         {title}
       </h2>
-      <div className="relative">
-        <div className="absolute top-0 bottom-0 left-0 right-0 z-10" />
+      <div>
         <div
           ref={scrollerRef}
           onScroll={() => handleScroll()}
-          className={` relative pl-4
+          className={` pl-4
           lg:pl-10 h-[144px] py-[200px] -my-[210px] md:-my-[200px] overflow-y-hidden flex items-center space-x-2 overflow-x-scroll scrollbar-hidden  md:space-x-4`}
         >
           {movies?.map((movie) => (
