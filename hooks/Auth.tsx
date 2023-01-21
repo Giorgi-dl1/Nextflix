@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import Loading from '../components/Loading'
 import { auth } from '../firebase'
 
 interface AuthInterface {
@@ -36,20 +37,25 @@ const Auth = createContext<AuthInterface>({
 export const AuthProvider = ({ children }: AuthProviderInterface) => {
   const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [initialLoading, setInitialLoading] = useState<boolean>(true)
 
   const router = useRouter()
 
   useEffect(() => {
-    setLoading(true)
+    setInitialLoading(true)
     onAuthStateChanged(auth, (user) => {
       if (!user) {
+        if (router.pathname === '/')
+          router.push('/login', undefined, { shallow: true })
+
         setUser(null)
-        setLoading(false)
+        setInitialLoading(false)
         return
       }
+      router.push('/', undefined, { shallow: true })
       setUser(user)
-      setLoading(false)
+      setInitialLoading(false)
     })
   }, [auth])
 
@@ -60,7 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((data) => {
         setUser(data.user)
-        router.push('/')
+        router.push('/', undefined, { shallow: true })
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
@@ -70,8 +76,8 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     setLoading(true)
     await signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
+        router.push('/', undefined, { shallow: true })
         setUser(data.user)
-        router.push('/')
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
@@ -82,6 +88,7 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
 
     signOut(auth)
       .then(() => {
+        router.push('/login', undefined, { shallow: true })
         setUser(null)
       })
       .catch((e) => setError(e))
@@ -101,7 +108,11 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     [user, loading, error],
   )
 
-  return <Auth.Provider value={value}>{children}</Auth.Provider>
+  return (
+    <Auth.Provider value={value}>
+      {initialLoading ? <Loading /> : children}
+    </Auth.Provider>
+  )
 }
 
 export default function useAuth() {

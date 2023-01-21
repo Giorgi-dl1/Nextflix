@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import AuthFooter from '../../../../components/AuthFooter'
 import Loading from '../../../../components/Loading'
@@ -30,12 +29,6 @@ const index = () => {
   }
 
   const errMessage = getError(error)
-
-  useEffect(() => {
-    if (user) {
-      router.push('/')
-    }
-  }, [user])
 
   return (
     <div className="absolute w-full min-h-screen text-black bg-white">

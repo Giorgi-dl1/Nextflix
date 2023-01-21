@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import AuthFooter from '../components/AuthFooter'
 import Loading from '../components/Loading'
@@ -30,14 +28,6 @@ const login = () => {
   }
 
   const errMessage = getError(authError)
-
-  const router = useRouter()
-
-  useEffect(() => {
-    if (user) {
-      router.push('/')
-    }
-  }, [])
 
   return (
     <div

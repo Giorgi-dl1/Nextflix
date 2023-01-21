@@ -1,14 +1,11 @@
 import axios from 'axios'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import Cover from '../components/Cover'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Loading from '../components/Loading'
 import Modal from '../components/Modal'
 import Row from '../components/Row'
-import useAuth from '../hooks/Auth'
 import useStore from '../hooks/Store'
 import { HomeProps } from '../utils/interfaces'
 import requests from '../utils/requests'
@@ -23,15 +20,7 @@ const Home = ({
   action,
   romance,
 }: HomeProps) => {
-  const router = useRouter()
-  const { user } = useAuth()
   const { favoriteMovies, loading } = useStore()
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/login')
-    }
-  }, [user])
 
   return loading ? (
     <div className="grid w-screen h-screen bg-white place-content-center">
