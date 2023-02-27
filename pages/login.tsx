@@ -31,7 +31,7 @@ const login = () => {
 
   return (
     <div
-      className={`relative max-w-[100vw] overflow-x-hidden  bg-black md:bg-transparent `}
+      className={`relative max-w-[100vw] overflow-x-hidden min-h-screen flex gap-6 flex-col justify-between  bg-black md:bg-transparent `}
     >
       <Head>
         <title>Nextflix</title>
@@ -48,7 +48,7 @@ const login = () => {
           NEXTFLIX
         </div>
       </header>
-      <main className="w-full min-h-screen px-5 pt-16 md:flex md:justify-center">
+      <main className="w-full md:min-h-[550px] lg:min-h-[660px] px-5 pt-16 md:flex md:justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="text-[grey] md:max-w-[470px] w-full md:p-[60px] md:bg-black/75 rounded"
